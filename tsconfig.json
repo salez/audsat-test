@@ -22,6 +22,15 @@
     "lib": [
       "ES2022",
       "dom"
+    ],
+    "paths": {
+      "@core/*": ["src/app/core/*"],
+      "@modules/*": ["src/app/modules/*"],
+      "@admin/*": ["src/app/modules/admin/*"],
+      "@shared/*": ["src/app/shared/*"]
+    },
+    "typeRoots": [
+      "node_modules/@types"
     ]
   },
   "angularCompilerOptions": {
