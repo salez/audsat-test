@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
-import { NavComponent } from '@shared/components/nav/nav.component';
+import { HeaderComponent } from '@shared/components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -17,11 +17,11 @@ import { NavComponent } from '@shared/components/nav/nav.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    NavComponent
+    HeaderComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

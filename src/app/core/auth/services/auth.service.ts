@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { distinctUntilChanged, map, of, ReplaySubject, shareReplay, switchMap, take, tap } from 'rxjs';
 import { LoginData } from '../models/login-data.model';
 import { PermissionService } from './permission.service';
-import { User } from '@modules/admin/modules/user/models/user.model';
+import { AuthUser } from '../models/auth-user.model';
 
 const FAKE_LOGIN = {
   email: 'admin@admin.com',
@@ -12,9 +12,9 @@ const FAKE_LOGIN = {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService { 
 
-  private _userAuthenticated$ = new ReplaySubject<User | null>(1);
+  private _userAuthenticated$ = new ReplaySubject<AuthUser | null>(1);
   userAuthenticated$ = this._userAuthenticated$.asObservable();
 
   // permissions$ = this.userAuthenticated$.pipe(
@@ -70,8 +70,8 @@ export class AuthService {
       .pipe(
         take(1),
         map((loginData) => {
-          const user: User = {
-            id: '1',
+          const user: AuthUser = {
+            id: 1,
             name: 'Admin',
             email: 'admin@teste.com',
             role: 'admin',
