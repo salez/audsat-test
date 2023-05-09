@@ -1,0 +1,41 @@
+<nav class="navbar-header">
+  <mat-toolbar color="primary">
+    <div class="logo">
+      <img src="assets/images/logo.svg" alt="Audsat" />
+    </div>
+    <span class="spacer"></span>
+    <a
+      mat-button
+      aria-label="Home"
+      [routerLink]="['home']"
+    >
+      Home
+    </a>
+    <a
+      mat-button
+      aria-label="Admin"
+      [routerLink]="['admin']"
+    >
+      Admin
+    </a>
+    <a
+      mat-button
+      aria-label="Logs"
+      routerLink="admin/logs"
+    >
+      Logs
+    </a>
+    <ng-container *ngIf="authService.isLoggedIn$ | async">
+      <span class="user-profile">
+        Bem vindo, {{ (authService.userAuthenticated$ | async)?.name }}
+      </span>
+      <a
+        mat-icon-button
+        aria-label="Logout"
+        (click)="logout()"
+      >
+        <mat-icon>logout</mat-icon>
+      </a>
+    </ng-container>
+  </mat-toolbar>
+</nav>

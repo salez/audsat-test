@@ -1,0 +1,21 @@
+.navbar-header{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.logo{
+  padding: var(--spacing-16);
+  height: 100%;
+  img{
+    height: 100%;
+  }
+}
+
+.spacer{
+  flex: 1 1 auto;
+}
+
+.user-profile{
+  margin-left: var(--spacing-16ssssss);
+}

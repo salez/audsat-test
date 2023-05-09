@@ -1,30 +1,34 @@
 import { Injectable } from '@angular/core';
-import { distinctUntilChanged, map, of, ReplaySubject, shareReplay, switchMap, tap } from 'rxjs';
-import { UserService } from '@features/user/services/user.service';
-import { User } from '@features/user/models/user.model';
+import { distinctUntilChanged, map, of, ReplaySubject, shareReplay, switchMap, take, tap } from 'rxjs';
 import { LoginData } from '../models/login-data.model';
 import { PermissionService } from './permission.service';
+import { User } from '@modules/admin/modules/user/models/user.model';
 
+const FAKE_LOGIN = {
+  email: 'admin@admin.com',
+  password: 'admin',
+  accessToken: '123456'
+}
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  userAuthenticated$ = new ReplaySubject<User | null>(1);
+  private _userAuthenticated$ = new ReplaySubject<User | null>(1);
+  userAuthenticated$ = this._userAuthenticated$.asObservable();
 
-  permissions$ = this.userAuthenticated$.pipe(
-    distinctUntilChanged(),
-    switchMap(user => user ? this.permissionService.getRole(user.role) : of(null)),
-    map(role => role?.permissions ?? []),
-    shareReplay(1)
-  )
+  // permissions$ = this.userAuthenticated$.pipe(
+  //   distinctUntilChanged(),
+  //   switchMap(user => user ? this.permissionService.getRole(user.role) : of(null)),
+  //   map(role => role?.permissions ?? []),
+  //   shareReplay(1)
+  // )
 
-  isLoggedIn$ = this.userAuthenticated$.pipe(
+  isLoggedIn$ = this._userAuthenticated$.pipe(
     map(user => !!user)
   );
 
   constructor(
-    private userService: UserService,
     private permissionService: PermissionService
   ) {
     this.checkIfUserIsAuthenticated();
@@ -33,19 +37,14 @@ export class AuthService {
   private checkIfUserIsAuthenticated() {
     const userToken = this.getUserTokenFromStorage();
     if (!userToken){
-      this.userAuthenticated$.next(null);
+      this._userAuthenticated$.next(null);
       return;
     }
 
-    this.userService.getUserByToken(userToken)
-      .subscribe({
-        next: (user) => {
-          this.userAuthenticated$.next(user);
-        },
-        error: () => {
-          this.userAuthenticated$.next(null);
-        }
-      });
+    this.fakeLogin({
+      email: FAKE_LOGIN.email,
+      password: FAKE_LOGIN.password
+    }).subscribe();
   }
 
   private saveUserTokenToStorage(token: string) {
@@ -56,39 +55,44 @@ export class AuthService {
     return localStorage.getItem('userToken');
   }
 
-  hasPermission$(permission: string) {
-    return this.permissions$.pipe(
-      map(permissions => permissions.includes(permission)),
-    );
-  }
+  // hasPermission$(permission: string) {
+  //   return this.permissions$.pipe(
+  //     map(permissions => permissions.includes(permission)),
+  //   );
+  // }
 
   getFakeAuthToken() {
     return this.getUserTokenFromStorage();
   }
 
-  fakeLoginWithInsecurePassValidation(authModel: LoginData) {
-    return this.userService.getUserByEmail(authModel.email)
+  fakeLogin(loginData: LoginData) {
+    return of(loginData)
       .pipe(
-        map((user: User) => {
-          if (user && user.password === authModel.password) {
-            this.userAuthenticated$.next(user);
+        take(1),
+        map((loginData) => {
+          const user: User = {
+            id: '1',
+            name: 'Admin',
+            email: 'admin@teste.com',
+            role: 'admin',
+            permissions: ['read', 'write'],
+            accessToken: FAKE_LOGIN.accessToken
+          }
+
+          if (loginData.email === FAKE_LOGIN.email && loginData.password === FAKE_LOGIN.password) {
+            this._userAuthenticated$.next(user);
             this.saveUserTokenToStorage(user.accessToken);
             return user;
           }
-          this.userAuthenticated$.next(null);
+          this._userAuthenticated$.next(null);
           return null;
         })
       )
   };
 
   logout() {
-    this.userAuthenticated$.next(null);
+    this._userAuthenticated$.next(null);
     localStorage.removeItem('userToken');
-  }
-
-  static createFakeAuthToken() {
-    const token = Math.random().toString(36).substring(2);
-    return token;
   }
 
 }

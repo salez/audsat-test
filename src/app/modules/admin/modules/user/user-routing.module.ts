@@ -1,20 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UserListComponent } from './components/user-list/user-list.component';
 
 const routes: Routes = [
   {
     path:'',
     pathMatch:'full',
-    redirectTo: 'users'
+    redirectTo: 'list'
   },
   {
-    path: 'users',
-    loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule)
+    path: 'list',
+    component: UserListComponent
   },
-  {
-    path: 'logs',
-    loadChildren: () => import('./modules/log/log.module').then(m => m.LogModule)
-  }
 ];
 
 @NgModule({

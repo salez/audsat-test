@@ -1,0 +1,44 @@
+:host{
+  width: 100%;
+  flex: 1;
+  display: flex;
+  background-color: var(--color-primary);
+}
+
+.login-form{
+  margin: auto;
+  max-width: 100%;
+  padding: 1rem;
+}
+
+.login-card{
+  width: 500px;
+  height: auto;
+  max-width: 100%;
+  margin: auto;
+
+  > mat-card-header{
+    display: flex;
+    justify-content: center;
+    padding: var(--spacing-16);
+  }
+
+  > mat-card-content{
+    display: flex;
+    flex-direction: column;
+  }
+
+  > mat-card-actions{
+    padding: var(--spacing-16);
+    justify-content: center;
+  }
+
+  .enter-button{
+    width: 200px;
+    max-width: 100%;
+  }
+
+  .showPassword{
+    cursor: pointer;
+  }
+}
