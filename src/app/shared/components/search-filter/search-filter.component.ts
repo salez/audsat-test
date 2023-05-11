@@ -23,6 +23,13 @@ export class SearchFilterComponent {
   @Input() placeholder = 'Pesquisar...';
   @Input() debounceTime = 500;
   @Input() autoSearchMinLength = 3;
+  @Input() set disabled(value: boolean){
+    if(value){
+      this.searchForm.controls.search.disable();
+    } else {
+      this.searchForm.controls.search.enable();
+    }
+  };
 
   @Output() search = new EventEmitter<string>();
   private forceSearch$ = new Subject<string>();
