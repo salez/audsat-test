@@ -1,0 +1,21 @@
+@use 'abstracts/mixins' as *;
+@use 'components/table';
+
+.filter{
+  margin-bottom: var(--spacing-16);
+  @include media(gt-sm){
+    width: 400px;
+    max-width: 100%;
+  }
+}
+
+.date-column{
+  width: 150px;
+}
+
+.loading-container{
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-16);
+  gap: var(--spacing-16);
+}
