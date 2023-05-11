@@ -1,0 +1,67 @@
+@use 'abstracts/mixins' as *;
+
+@mixin navBottomLine(){
+  &::after {
+    content: "";
+    right: 0;
+    width: 0;
+    bottom: 0;
+    height: 5px;
+    margin-left: 0;
+    position: absolute;
+    @include transition(all);
+    background: var(--color-secondary);
+  }
+}
+
+@mixin navBottomLineActive(){
+  &::after {
+    right: auto;
+    width: 100%;
+    left: 0;
+  }
+}
+
+.nav-header{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.nav-link{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  height: 100%;
+  color: white;
+  position: relative;
+  padding: 0 var(--spacing-16);
+  @include navBottomLine();
+
+  &:hover, &.active{
+    @include navBottomLineActive();
+  }
+}
+
+.nav-toolbar{
+  gap: var(--spacing-16);
+
+  .logo{
+    padding: var(--spacing-16);
+    height: 100%;
+
+    > img{
+      height: 100%;
+    }
+  }
+
+  .spacer{
+    flex: 1 1 auto;
+  }
+
+  .user-profile{
+    padding-left: var(--spacing-16);
+    border-left: 1px solid var(--border-color);
+  }
+}
+

@@ -6,13 +6,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
-import { NavComponent } from './nav.component';
+import { HeaderComponent } from './header.component';
 import { AuthService } from '@core/auth/services/auth.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 describe('NavComponent', () => {
-  let component: NavComponent;
-  let fixture: ComponentFixture<NavComponent>;
+  let component: HeaderComponent;
+  let fixture: ComponentFixture<HeaderComponent>;
   let authServiceSpy: jasmine.SpyObj<AuthService>;
   let breakpointObserverSpy: jasmine.SpyObj<BreakpointObserver>;
 
@@ -20,7 +20,7 @@ describe('NavComponent', () => {
     authServiceSpy = jasmine.createSpyObj('AuthService', ['logout']);
     breakpointObserverSpy = jasmine.createSpyObj('BreakpointObserver', ['observe']);
     await TestBed.configureTestingModule({
-      declarations: [NavComponent],
+      declarations: [HeaderComponent],
       imports: [
         CommonModule,
         MatToolbarModule,
@@ -36,7 +36,7 @@ describe('NavComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(NavComponent);
+    fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
 
     // breakpointObserverSpy.observe.and.returnValue(
