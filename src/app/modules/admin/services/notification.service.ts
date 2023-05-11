@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AdminModule } from '@modules/admin/admin.module';
 
-const SNACKBAR_DURATION = 300000;
+const SNACKBAR_DURATION = 3000;
 
 @Injectable({
   providedIn: AdminModule
