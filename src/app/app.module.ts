@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { HeaderComponent } from '@shared/components/header/header.component';
+import { FooterComponent } from '@shared/components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HeaderComponent } from '@shared/components/header/header.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
