@@ -44,7 +44,9 @@
 }
 
 .nav-toolbar{
-  gap: var(--spacing-16);
+  @include media(gt-sm){
+    gap: var(--spacing-16);
+  }
 
   .logo{
     padding: var(--spacing-16);
@@ -52,6 +54,12 @@
 
     > img{
       height: 100%;
+      max-width: 100%;
+    }
+
+    @include media(lt-sm){
+      width: 100px;
+      padding: auto;
     }
   }
 
@@ -60,8 +68,13 @@
   }
 
   .user-profile{
+    display: none;
     padding-left: var(--spacing-16);
     border-left: 1px solid var(--border-color);
+
+    @include media(gt-sm){
+      display: block;
+    }
   }
 }
 
