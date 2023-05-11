@@ -1,1 +1,39 @@
-<p>user-list works!</p>
+<section>
+  <app-page-title>Usuários</app-page-title>
+  <app-page-content class="content">
+    <div class="filter">
+      <app-search-filter (search)="filterUsers($event)" placeholder="Pesquisar por nome, username ou e-mail..."></app-search-filter>
+    </div>
+    <div class="table-container mat-elevation-z2">
+      <table mat-table class="full-width-table" matSort aria-label="Elements">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+          <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+        </ng-container>
+        <ng-container matColumnDef="username">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
+          <td mat-cell *matCellDef="let row">{{ row.username }}</td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>E-mail</th>
+          <td mat-cell *matCellDef="let row">{{ row.email }}</td>
+        </ng-container>
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Telefone</th>
+          <td mat-cell *matCellDef="let row">{{ row.phone }}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="postHistory(row.id)"></tr>
+      </table>
+      <mat-paginator
+        #paginator
+        [length]="dataSource?.data?.length"
+        [pageIndex]="0"
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 20]"
+        aria-label="Selecione a página"
+      >
+      </mat-paginator>
+    </div>
+  </app-page-content>
+</section>

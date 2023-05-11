@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AuthService } from '@core/auth/services/auth.service';
+import { User } from '../../models/user.model';
+import { UserService } from '../../services/user.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -7,5 +15,48 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserListComponent {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatTable) table!: MatTable<User>;
+  dataSource: MatTableDataSource<User> | undefined;
 
+  displayedColumns = ['name', 'username', 'email', 'phone'];
+
+  constructor(
+    protected authService: AuthService,
+    protected userService: UserService,
+    protected router: Router
+  ) {
+    this.userService.getUsers()
+      .pipe(
+        takeUntilDestroyed()
+      )
+      .subscribe(users => {
+        this.dataSource = new MatTableDataSource<User>(users);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        this.table.dataSource = this.dataSource;
+      });
+  }
+
+  ngAfterViewInit(): void {
+    
+  }
+
+  postHistory(id: number){
+    this.router.navigate(['/admin/posts/user', id]);
+  }
+
+  filterUsers(searchTerm: string) {
+    if(!this.dataSource) return;
+
+    this.dataSource.filterPredicate = (data: User, filter: string) => {
+      const { name, email, username } = data;
+      return name.toLowerCase().includes(filter) 
+        || email.toLowerCase().includes(filter) 
+        || username.toLowerCase().includes(filter);
+    };
+
+    this.dataSource.filter = searchTerm.trim().toLowerCase();
+  }
 }

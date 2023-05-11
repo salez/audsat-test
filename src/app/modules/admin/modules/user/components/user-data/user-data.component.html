@@ -1,5 +1,18 @@
-<ng-container *ngIf="user$ | async; let user">
-  Nome: {{ user.name }}
-  E-mail: {{ user.email }}
-  Endereço: {{ user.email }}
-</ng-container>
+<section class="mat-elevation-z2">
+  <mat-card *ngIf="user$ | async; let user">
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon>account_circle</mat-icon>
+      </div>
+      <mat-card-title>{{ user.name }}</mat-card-title>
+      <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <address>
+        <p>{{ user.address.street }}</p>
+        <p>{{ user.address.suite }}</p>
+        <p>{{ user.address.city }} - {{ user.address.zipcode }}</p>
+      </address>
+    </mat-card-content>
+  </mat-card>
+</section>
