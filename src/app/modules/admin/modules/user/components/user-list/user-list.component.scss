@@ -1,4 +1,5 @@
 @use 'abstracts/mixins' as *;
+@use 'components/table';
 
 .filter{
   margin-bottom: var(--spacing-16);
@@ -6,6 +7,13 @@
     width: 400px;
     max-width: 100%;
   }
+}
+
+.loading-container{
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-16);
+  gap: var(--spacing-16);
 }
 
 .mat-mdc-row{
@@ -18,4 +26,12 @@
       background-color: var(--color-highlight);
     }
   }
+}
+
+.actions-column{
+  width: 80px;
+}
+
+.actions-cell{
+  text-align: right;
 }

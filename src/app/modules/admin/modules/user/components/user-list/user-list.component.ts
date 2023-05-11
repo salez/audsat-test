@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '@core/auth/services/auth.service';
 import { User } from '../../models/user.model';
@@ -18,9 +18,12 @@ export class UserListComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<User>;
-  dataSource: MatTableDataSource<User> | undefined;
+  
 
-  displayedColumns = ['name', 'username', 'email', 'phone'];
+  readonly displayedColumns = ['name', 'username', 'email', 'phone', 'actions'];
+
+  protected dataSource!: MatTableDataSource<User>;
+  protected loading = signal(true);
 
   constructor(
     protected authService: AuthService,
@@ -31,16 +34,17 @@ export class UserListComponent {
       .pipe(
         takeUntilDestroyed()
       )
-      .subscribe(users => {
-        this.dataSource = new MatTableDataSource<User>(users);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.table.dataSource = this.dataSource;
+      .subscribe({
+        next: (users) => {
+          this.dataSource = new MatTableDataSource<User>(users);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.loading.set(false);
+        },
+        error: () => {
+          this.loading.set(false);
+        }
       });
-  }
-
-  ngAfterViewInit(): void {
-    
   }
 
   postHistory(id: number){

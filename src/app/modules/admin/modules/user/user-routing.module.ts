@@ -5,8 +5,7 @@ import { UserListComponent } from './components/user-list/user-list.component';
 const routes: Routes = [
   {
     path:'',
-    pathMatch:'full',
-    redirectTo: 'list'
+    component: UserListComponent
   },
   {
     path: 'list',
@@ -18,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminRoutingModule { }
+export class UserRoutingModule { }
