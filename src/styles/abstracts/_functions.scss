@@ -1,0 +1,3 @@
+@function transition($property: all, $duration: var(--transition-duration), $timing-function: var(--transition-timing-function)) {
+  @return #{$property} #{$duration} #{$timing-function};
+}

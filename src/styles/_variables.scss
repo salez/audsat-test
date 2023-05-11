@@ -1,7 +1,15 @@
+@use '@angular/material/theming' as theming;
+@use 'themes/audsat_theme' as *;
+
+$primary: map-get($audsat-theme, primary);
+$accent: map-get($audsat-theme, accent);
+
 :root {
   /* Colors */
-  --color-primary: #3f51b5;
-  --color-secondary: #ff4081;
+  --color-primary: #{theming.mat-color($primary)};
+  --color-secondary: #{theming.mat-color($accent)};
+  --color-highlight: #{theming.mat-color($accent, A100)};
+  --color-selected: #ececec;
   --color-success: #295f2a;
   --color-info: #2196f3;
 

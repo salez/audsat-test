@@ -1,0 +1,48 @@
+@use "@angular/material" as mat;
+
+$audsat-palette: (
+  50: #e0e6e8,
+  100: #b3c1c6,
+  200: #8098a0,
+  300: #4d6e79,
+  400: #264f5d,
+  500: #003040,
+  600: #002b3a,
+  700: #002432,
+  800: #001e2a,
+  900: #00131c,
+  A100: #c5ebd7,
+  A200: #007839,
+  A400: #005d2d,
+  A700: #004d1f,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #ffffff,
+    A700: #ffffff,
+  ),
+);
+
+$theme-primary: mat.define-palette($audsat-palette);
+$theme-accent: mat.define-palette($audsat-palette, A200, A100, A400);
+$theme-warn: mat.define-palette(mat.$red-palette);
+
+$audsat-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $theme-primary,
+      accent: $theme-accent,
+      warn: $theme-warn,
+    ),
+  )
+);
