@@ -1,0 +1,53 @@
+@use 'abstracts/functions' as *;
+
+.title{
+  display: flex;
+  justify-content: space-between;
+}
+
+.post{
+  transition: transition(opacity);
+  
+  &.deleting{
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.post-header{
+  height: auto;
+  padding: var(--spacing-16);
+  transition: transition(background-color);
+
+  ::ng-deep{
+    > span {
+      flex-direction: column;
+      gap: var(--spacing-8);
+    }
+  }
+
+  .delete-button{
+    opacity: 0;
+    transition: transition(opacity);
+  }
+
+  &:hover, &.mat-expanded{
+    background-color: var(--color-highlight) !important;
+
+    .delete-button{
+      opacity: 1;
+    }
+  }
+
+  &.mat-expanded{
+    margin-bottom: var(--spacing-16);
+    background-color: var(--color-selected) !important;
+  }
+}
+
+.loading-container{
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-16);
+  gap: var(--spacing-16);
+}

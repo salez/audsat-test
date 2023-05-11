@@ -1,1 +1,44 @@
-<p>post-list works!</p>
+<section>
+  <div class="loading-container" *ngIf="loading();">
+    <app-loading-shimmer *ngFor="let data of [].constructor(10)" height="60px"></app-loading-shimmer>
+  </div>
+  <mat-accordion [multi]="true">
+    <article @fadeHeightLeaveAnimation
+      *ngFor="let post of posts$ | async; trackBy: postsTrackByFn"
+      class="post"
+      [class.deleting]="deletingPosts()[post.id]"
+    >
+      <mat-expansion-panel
+        (opened)="onOpenPost(post.id)"
+        (closed)="onClosePost(post.id)"
+      >
+        <mat-expansion-panel-header class="post-header">
+          <mat-panel-title class="title">
+            {{ post.title }}
+            <button
+              class="delete-button"
+              [class.active]="activePosts()[post.id]"
+              mat-raised-button
+              mat-button-raised
+              color="accent"
+              aria-label="Apagar Post"
+              (click)="deletePost(post.id); $event.stopPropagation()"
+            >
+              APAGAR
+            </button>
+          </mat-panel-title>
+          <mat-panel-description>
+            {{ post.body }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <app-post-comments
+          *ngIf="activePosts()[post.id]"
+          [postId]="post.id"
+        ></app-post-comments>
+
+      </mat-expansion-panel>
+      
+    </article>
+  </mat-accordion>
+</section>

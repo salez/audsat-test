@@ -1,1 +1,10 @@
-<p>post-history works!</p>
+<app-page-title>
+  Histórico de Posts
+</app-page-title>
+<app-page-content class="content-container">
+  <aside class="user-data">
+    <app-user-data [id]="userId"></app-user-data>
+    <button mat-raised-button color="accent" (click)="goBack()">VOLTAR</button>
+  </aside>
+  <app-post-list class="post-list" [userId]="userId"></app-post-list>
+</app-page-content>
