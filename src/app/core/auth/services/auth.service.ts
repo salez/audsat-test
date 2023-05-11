@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { distinctUntilChanged, map, of, ReplaySubject, shareReplay, switchMap, take, tap } from 'rxjs';
+import { map, of, ReplaySubject, take } from 'rxjs';
 import { LoginData } from '../models/login-data.model';
-import { PermissionService } from './permission.service';
 import { AuthUser } from '../models/auth-user.model';
 
 const FAKE_LOGIN = {
@@ -17,19 +16,11 @@ export class AuthService {
   private _userAuthenticated$ = new ReplaySubject<AuthUser | null>(1);
   userAuthenticated$ = this._userAuthenticated$.asObservable();
 
-  // permissions$ = this.userAuthenticated$.pipe(
-  //   distinctUntilChanged(),
-  //   switchMap(user => user ? this.permissionService.getRole(user.role) : of(null)),
-  //   map(role => role?.permissions ?? []),
-  //   shareReplay(1)
-  // )
-
   isLoggedIn$ = this._userAuthenticated$.pipe(
     map(user => !!user)
   );
 
   constructor(
-    private permissionService: PermissionService
   ) {
     this.checkIfUserIsAuthenticated();
   }
@@ -54,12 +45,6 @@ export class AuthService {
   private getUserTokenFromStorage() {
     return localStorage.getItem('userToken');
   }
-
-  // hasPermission$(permission: string) {
-  //   return this.permissions$.pipe(
-  //     map(permissions => permissions.includes(permission)),
-  //   );
-  // }
 
   getFakeAuthToken() {
     return this.getUserTokenFromStorage();
