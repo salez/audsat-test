@@ -55,13 +55,13 @@
       </mat-form-field>
     </mat-card-content>
     <mat-error align="center" *ngIf="loginError$ | async">
-      E-mail ou senha inválidos
+      E-mail e/ou senha inválidos
     </mat-error>
     <mat-card-actions>
       <button
         class="enter-button"
         mat-raised-button
-        color="primary"
+        color="accent"
         [disabled]="!loginForm.valid"
         (click)="login()"
       >

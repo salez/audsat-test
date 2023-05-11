@@ -10,18 +10,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BehaviorSubject, firstValueFrom, lastValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
+import { CommonMaterialModule } from '@shared/common-material.module';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     CommonModule,
-    MatCardModule,
+    CommonMaterialModule,
     HttpClientModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
     ReactiveFormsModule
   ],
   templateUrl: './login.component.html',
@@ -33,11 +30,11 @@ export class LoginComponent implements AfterViewInit {
 
   protected showPassword = signal(false);
   protected loginForm = this.fb.group({
-    email: ['', [
+    email: ['admin@admin.com', [
       Validators.required,
       Validators.email
     ]],
-    password: ['', [
+    password: ['admin', [
       Validators.required,
       Validators.maxLength(8)
     ]]
