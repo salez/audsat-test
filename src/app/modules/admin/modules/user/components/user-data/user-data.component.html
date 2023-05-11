@@ -1,4 +1,8 @@
 <section class="mat-elevation-z2">
+
+  <div class="loading-container" *ngIf="loading();">
+    <app-loading-shimmer *ngFor="let data of [].constructor(4)" height="10px"></app-loading-shimmer>
+  </div>
   <mat-card *ngIf="user$ | async; let user">
     <mat-card-header>
       <div mat-card-avatar>

@@ -1,1 +1,14 @@
-<p>post-comments works!</p>
+<section>
+  <h3>Comments</h3>
+  <div class="comments-container">
+    <div class="loading-container" *ngIf="loading();">
+      <app-loading-shimmer *ngFor="let data of [].constructor(4)" height="40px"></app-loading-shimmer>
+    </div>
+    <article class="comment" *ngFor="let comment of comments$ | async">
+      <header>
+        <address class="author">{{ comment.email }}</address>
+      </header>
+      <div class="comment-body">{{ comment.body }}</div>
+    </article>
+  </div>
+</section>
