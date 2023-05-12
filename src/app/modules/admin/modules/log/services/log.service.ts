@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { Log } from '../models/log.model';
 import { AuthService } from '@core/auth/services/auth.service';
-import { switchMap } from 'rxjs';
+import { switchMap, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +21,7 @@ export class LogService {
 
   create(log: Pick<Log, 'action' | 'entity' | 'entityId'>){
     return this.authService.userAuthenticated$.pipe(
+      take(1),
       switchMap((user) => this.http.post(environment.mockApi + '/logs', {
         ...log,
         user: user?.name,

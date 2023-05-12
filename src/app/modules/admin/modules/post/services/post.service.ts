@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Post } from '../models/post.model';
 import { PostComment } from '../models/post-comment.model';
-import { switchMap, tap } from 'rxjs';
+import { switchMap, take, tap } from 'rxjs';
 import { LogService } from '../../log/services/log.service';
 
 @Injectable({
@@ -32,7 +32,9 @@ export class PostService {
             action: 'delete',
             entity: 'post',
             entityId: postId
-          }).subscribe({
+          }).pipe(
+            take(1)
+          ).subscribe({
             error: (error) => console.error('Failed to create log:', error)
           });
         })

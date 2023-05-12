@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core';
-import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, signal } from '@angular/core';
+import { BehaviorSubject, ReplaySubject, takeUntil } from 'rxjs';
 import { Post } from '../../models/post.model';
 import { PostService } from '../../services/post.service';
 import { NotificationService } from '@modules/admin/services/notification.service';
@@ -14,12 +14,13 @@ import { animations } from '@core/animations/animations';
     animations.fadeHeightLeaveAnimation
   ]
 })
-export class PostListComponent {
+export class PostListComponent implements OnInit, OnDestroy {
   @Input({required: true}) userId!: number;
   protected activePosts = signal<boolean[]>([]);
   protected deletingPosts = signal<boolean[]>([]);
   protected posts$ = new BehaviorSubject<Post[]>([]);
   protected loading = signal(true);
+  private destroy$ = new ReplaySubject<void>(1);
 
   constructor(
     private postService: PostService,
@@ -27,7 +28,11 @@ export class PostListComponent {
   ){}
 
   ngOnInit(): void {
-    this.postService.getPostsByUser(this.userId).subscribe((posts) => {
+    this.postService.getPostsByUser(this.userId)
+      .pipe(
+        takeUntil(this.destroy$)
+      )
+    .subscribe((posts) => {
       this.posts$.next(posts);
       this.loading.set(false);
     });
@@ -54,5 +59,10 @@ export class PostListComponent {
 
   protected postsTrackByFn(index: number, item: Post){
     return item.id;
+  }
+
+  ngOnDestroy(){
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
