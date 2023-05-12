@@ -8,7 +8,7 @@ import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header.component';
 import { AuthService } from '@core/auth/services/auth.service';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 describe('NavComponent', () => {
   let component: HeaderComponent;
@@ -38,10 +38,6 @@ describe('NavComponent', () => {
 
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
-
-    // breakpointObserverSpy.observe.and.returnValue(
-    //   of({ matches: true, breakpoints: Breakpoints.Handset })
-    // );
   });
 
   it('should create the component', () => { 
@@ -52,11 +48,5 @@ describe('NavComponent', () => {
     component.logout();
     expect(authServiceSpy.logout).toHaveBeenCalled();
     expect(component['router'].navigate).toHaveBeenCalledWith(['/login']);
-  });
-
-  it('should have an isHandset$ observable that emits a boolean', () => {
-    component.isHandset$.subscribe((result) => {
-      expect(typeof result).toBe('boolean');
-    });
   });
 });

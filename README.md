@@ -12,6 +12,12 @@ https://audsat-test.vercel.app
 
 O objetivo deste projeto é demonstrar o uso avançado das tecnologias disponíveis para criar uma aplicação web robusta e eficiente com base no cenário proposto
 
+## Tecnologias Utilizadas
+
+- Angular 16
+- Angular Material
+- Rxjs
+
 ## Requisitos e Funcionalidades
 
 Requisitos obrigatórios desenvolvidos:
@@ -25,6 +31,7 @@ Requisitos obrigatórios desenvolvidos:
 Além das funcionalidades obrigatórias, algumas outras funcionalidades foram desenvolvidas para uma melhor experiência geral:
 - Uso extensivo dos componentes standalone do Angular;
 - Uso das últimas ferramentas disponíveis no framework, como componentes standalone e o signal() trazendo um melhor aproveitamento da detecção de mudanças
+- Uso do changeDetection OnPush por padrao nos componentes, trazendo uma melhor performance geral e melhores praticas de codificacao
 - Codificação reativa com Rxjs e signal() em observância as melhores práticas (Clean Code, SOLID)
 - Interface desenvolvida com o Angular Material;
 - Navegação de tabela;
@@ -43,7 +50,7 @@ A aplicação utiliza o jsonplaceholder para acessar e mostrar os recursos obrig
 ## Estrutura da Aplicação
 
 - Com base no cenário proposto, a estrutura da aplicação foi desenhada para ser escalável e rápida, trazendo uma experiência agradável para o usuário, a home da aplicação carrega apenas o mínimo necessário para a aplicação funcionar e as demais partes da aplicação são carregadas conforme a demanda.
-- A estrutura foi inicialmente dividida em dois grandes blocos, a parte publica e a parte administrativa, sendo necessário fazer login para acessar as rotas da área administrativa
+- A estrutura foi inicialmente dividida em dois grandes blocos, a parte pública (home) e a parte administrativa, sendo necessário fazer login para acessar as rotas da área administrativa.
 
 ## Desafios
 
@@ -55,7 +62,7 @@ A aplicação utiliza o jsonplaceholder para acessar e mostrar os recursos obrig
 
 - Separação dos estilos de forma escalável
 - Utilização de variaveis, mixins e functions do SCSS para garantir uma experiência unificada com relação ao layout e facilitar o reuso.
-- Desenvolvimento de um tema personalizado utilizando o Angular Material respeitando as cores propostas no layout (O header deve ter a cor de fundo #003040; Os botões devem ter a cor: #007839 e no :hover ele deve escurecer 6%) mantendo uma harmonia entre os componentes do Angular Material e o as cores Audisat
+- Desenvolvimento de um tema personalizado utilizando o Angular Material respeitando as cores propostas no layout (O header deve ter a cor de fundo #003040; Os botões devem ter a cor: #007839 e no :hover ele deve escurecer 6%) mantendo uma harmonia entre os componentes do Angular Material e as cores Audsat
 
 ### Header e Footer
 
@@ -79,9 +86,13 @@ A aplicação utiliza o jsonplaceholder para acessar e mostrar os recursos obrig
 - Animações via CSS
 - Exclusão (fake) dos post com notificação
 
+### Logs
+
+- Implementação do serviço e persistência de logs (apenas log de exclusão é gravado).
+
 ## Observações
 
-- Este projeto não possui foco em testes unitários e tratamento de erros (principalmente vindo das apis fake), sendo feito apenas o básico na verificação se o usuário já tinha uma sessão antes através de um token fake armazenado no localStorage.
+- Este projeto não possui foco em testes unitários e tratamento de erros (principalmente vindo das apis fake), sendo feito apenas o básico na verificação se o usuário já tinha uma sessão ativa através de um token fake armazenado no localStorage (sem expiração)
 
 ## Instruções de Uso
 
@@ -89,9 +100,3 @@ A aplicação utiliza o jsonplaceholder para acessar e mostrar os recursos obrig
 2. Execute `npm install` para instalar as dependências.
 3. Execute `ng serve` para iniciar o servidor de desenvolvimento.
 5. Abra o navegador e acesse `http://localhost:4200` para acessar a aplicação.
-
-## Tecnologias Utilizadas
-
-- Angular 16
-- Angular Material
-- Rxjs

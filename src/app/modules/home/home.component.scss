@@ -3,18 +3,22 @@
   line-height: var(--spacing-24);
 }
 
-p, ul{
-  margin-bottom: var(--spacing-16);
-}
-
-h3{
-  margin-bottom: var(--spacing-16);
-}
-
 .home-subtitle{
   margin-bottom: var(--spacing-16);
 }
 
 .home-list{
   padding-left: var(--spacing-16);
+}
+
+.center{
+  text-align: center;
+}
+
+p, ul{
+  margin-bottom: var(--spacing-16);
+}
+
+h3{
+  margin-bottom: var(--spacing-16);
 }

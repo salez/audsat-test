@@ -1,6 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { PostService } from '../../services/post.service';
-import { Post } from '../../models/post.model';
 import { Router } from '@angular/router';
 
 @Component({

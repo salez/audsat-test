@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Post } from '../models/post.model';
 import { PostComment } from '../models/post-comment.model';
-import { switchMap, take, tap } from 'rxjs';
+import { take, tap } from 'rxjs';
 import { LogService } from '../../log/services/log.service';
 
 @Injectable({
